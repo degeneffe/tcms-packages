@@ -1,0 +1,41 @@
+{
+  "name": "@tcms/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./StatusBadge": {
+      "import": "./src/StatusBadge/index.ts"
+    },
+    "./TagChip": {
+      "import": "./src/TagChip/index.ts"
+    },
+    "./ExecutionStatusBar": {
+      "import": "./src/ExecutionStatusBar/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tcms/types": "workspace:*",
+    "react": "^19.1.0",
+    "react-native": "0.74.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.1.4",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/coverage-v8": "^3.0.7",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.74"
+  }
+}
