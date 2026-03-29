@@ -182,3 +182,24 @@ export interface BulkUpsertStepResultsRequest {
     notes?: string
   }>
 }
+
+// ─── Search DTOs ────────────────────────────────────────────────────────────
+
+export type SearchEntityType = 'test_case'
+
+export type SearchMatchedField = 'title' | 'description' | 'gherkin_raw' | 'preconditions' | 'step'
+
+export interface SearchResult {
+  entityType: SearchEntityType
+  entityId: string
+  title: string
+  projectId: string
+  matchedField: SearchMatchedField
+}
+
+export interface SearchFilters {
+  q: string
+  projectId?: string
+  page?: number
+  limit?: number
+}
