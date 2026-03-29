@@ -1,5 +1,11 @@
 export type UserRole = 'admin' | 'manager' | 'tester' | 'viewer'
 
+export const ROLE_PERMISSIONS = {
+  read: ['admin', 'manager', 'tester', 'viewer'] as UserRole[],
+  write: ['admin', 'manager', 'tester'] as UserRole[],
+  admin: ['admin'] as UserRole[],
+} as const
+
 export type TestCaseType = 'gherkin' | 'script'
 
 export type TestCaseStatus = 'draft' | 'active' | 'deprecated'
