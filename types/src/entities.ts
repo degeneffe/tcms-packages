@@ -120,6 +120,11 @@ export interface TestExecution {
   durationMs: number | null
   createdAt: string
   updatedAt: string
+  testCase?: {
+    type: TestCaseType
+    gherkinRaw: string | null
+    steps: Array<{ id: string; orderIndex: number; action: string; expected: string }>
+  } | null
 }
 
 export interface StepResult {
@@ -142,6 +147,16 @@ export interface Attachment {
   storagePath: string
   uploadedBy: string
   createdAt: string
+}
+
+export interface TestCaseComment {
+  id: string
+  testCaseId: string
+  projectId: string
+  authorId: string
+  body: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface ProjectStats {
