@@ -195,6 +195,7 @@ export interface SearchResult {
   title: string
   projectId: string
   matchedField: SearchMatchedField
+  snippet?: string
 }
 
 export interface SearchFilters {
