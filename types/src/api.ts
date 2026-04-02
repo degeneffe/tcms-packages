@@ -204,3 +204,27 @@ export interface SearchFilters {
   page?: number
   limit?: number
 }
+
+// ─── Global Test Case List DTOs ─────────────────────────────────────────────
+
+export interface GlobalTestCaseItem {
+  id: string
+  projectId: string
+  projectName: string
+  title: string
+  type: TestCaseType
+  status: 'draft' | 'active' | 'deprecated'
+  priority: Priority
+  updatedAt: string
+  snippet?: string
+}
+
+export interface GlobalTestCaseFilters {
+  projectId?: string
+  type?: TestCaseType
+  status?: string
+  priority?: Priority
+  search?: string
+  page?: number
+  limit?: number
+}
