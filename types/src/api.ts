@@ -176,7 +176,7 @@ export interface UpdateExecutionRequest {
 
 export interface BulkUpsertStepResultsRequest {
   steps: Array<{
-    stepIndex: number
+    stepIndex?: number
     stepText: string
     status: ExecutionStatus
     notes?: string
