@@ -1,18 +1,19 @@
 import type { StatusBadgeProps } from './types.ts'
+import { colors } from '../tokens.ts'
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string }> = {
-  pass:       { label: 'Pass',       bg: '#22c55e', text: 'white' },
-  fail:       { label: 'Fail',       bg: '#ef4444', text: 'white' },
-  skip:       { label: 'Skip',       bg: '#f59e0b', text: 'white' },
-  blocked:    { label: 'Blocked',    bg: '#8b5cf6', text: 'white' },
-  pending:    { label: 'Pending',    bg: '#94a3b8', text: 'white' },
-  draft:      { label: 'Draft',      bg: '#e2e8f0', text: '#475569' },
-  active:     { label: 'Active',     bg: '#3b82f6', text: 'white' },
-  deprecated: { label: 'Deprecated', bg: '#64748b', text: 'white' },
+  pass:       { label: 'Pass',       bg: colors.statusPass,    text: 'white' },
+  fail:       { label: 'Fail',       bg: colors.statusFail,    text: 'white' },
+  skip:       { label: 'Skip',       bg: colors.statusSkip,    text: 'white' },
+  blocked:    { label: 'Blocked',    bg: colors.statusBlocked, text: 'white' },
+  pending:    { label: 'Pending',    bg: colors.statusPending, text: 'white' },
+  draft:      { label: 'Draft',      bg: colors.border,        text: colors.textSubdued },
+  active:     { label: 'Active',     bg: colors.primary,       text: 'white' },
+  deprecated: { label: 'Deprecated', bg: colors.textMuted,     text: 'white' },
 }
 
 export function StatusBadge({ status }: StatusBadgeProps) {
-  const config = STATUS_CONFIG[status] ?? { label: status, bg: '#e2e8f0', text: '#475569' }
+  const config = STATUS_CONFIG[status] ?? { label: status, bg: colors.border, text: colors.textSubdued }
   return (
     <span
       role="status"

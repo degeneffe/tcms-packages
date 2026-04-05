@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./tokens": {
+      "import": "./src/tokens.ts"
+    },
     "./StatusBadge": {
       "import": "./src/StatusBadge/index.ts"
     },

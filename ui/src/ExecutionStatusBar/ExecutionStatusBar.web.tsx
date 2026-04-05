@@ -1,11 +1,12 @@
 import type { ExecutionStatusBarProps } from './types.ts'
+import { colors } from '../tokens.ts'
 
 const COLORS: Record<string, string> = {
-  pass: '#22c55e',
-  fail: '#ef4444',
-  skip: '#f59e0b',
-  blocked: '#8b5cf6',
-  pending: '#94a3b8',
+  pass: colors.statusPass,
+  fail: colors.statusFail,
+  skip: colors.statusSkip,
+  blocked: colors.statusBlocked,
+  pending: colors.statusPending,
 }
 
 export function ExecutionStatusBar({ pass, fail, skip, pending, blocked = 0 }: ExecutionStatusBarProps) {
@@ -36,7 +37,7 @@ export function ExecutionStatusBar({ pass, fail, skip, pending, blocked = 0 }: E
           data-testid={`statusbar-${key}`}
           style={{
             flex: value / total,
-            backgroundColor: COLORS[key] ?? '#e2e8f0',
+            backgroundColor: COLORS[key] ?? colors.border,
           }}
         />
       ))}
