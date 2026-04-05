@@ -205,6 +205,24 @@ export interface SearchFilters {
   limit?: number
 }
 
+// ─── Report DTOs ────────────────────────────────────────────────────────────
+
+export interface CycleTrendPoint {
+  cycleId: string
+  cycleName: string
+  environment: string | null
+  completedAt: string
+  passRate: number
+  total: number
+  byStatus: {
+    pass: number
+    fail: number
+    skip: number
+    blocked: number
+    pending: number
+  }
+}
+
 // ─── Global Test Case List DTOs ─────────────────────────────────────────────
 
 export interface GlobalTestCaseItem {
