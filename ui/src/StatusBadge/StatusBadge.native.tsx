@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import type { StatusBadgeProps } from './types.ts'
+import type { StatusBadgeProps } from './types'
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string }> = {
   pass:       { label: 'Pass',       bg: '#22c55e', text: '#fff' },

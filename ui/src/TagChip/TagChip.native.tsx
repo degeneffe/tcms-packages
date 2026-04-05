@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import type { TagChipProps } from './types.ts'
+import type { TagChipProps } from './types'
 
 export function TagChip({ name, color = '#64748b', onRemove }: TagChipProps) {
   return (

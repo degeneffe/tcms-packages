@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { ExecutionStatusBar } from '../ExecutionStatusBar/ExecutionStatusBar.web.tsx'
+import { ExecutionStatusBar } from '../ExecutionStatusBar/ExecutionStatusBar.web'
 
 describe('ExecutionStatusBar (web)', () => {
   it('renders nothing when total is 0', () => {

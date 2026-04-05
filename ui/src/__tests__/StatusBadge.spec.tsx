@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { StatusBadge } from '../StatusBadge/StatusBadge.web.tsx'
+import { StatusBadge } from '../StatusBadge/StatusBadge.web'
 
 describe('StatusBadge (web)', () => {
   const cases = [

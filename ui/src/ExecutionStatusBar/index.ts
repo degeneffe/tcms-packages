@@ -1,2 +1,2 @@
-export { ExecutionStatusBar } from './ExecutionStatusBar.web.tsx'
-export type { ExecutionStatusBarProps } from './types.ts'
+export { ExecutionStatusBar } from './ExecutionStatusBar.web'
+export type { ExecutionStatusBarProps } from './types'

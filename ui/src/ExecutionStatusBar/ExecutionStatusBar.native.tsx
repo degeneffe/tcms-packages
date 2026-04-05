@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native'
-import type { ExecutionStatusBarProps } from './types.ts'
+import type { ExecutionStatusBarProps } from './types'
 
 const COLORS: Record<string, string> = {
   pass: '#22c55e',

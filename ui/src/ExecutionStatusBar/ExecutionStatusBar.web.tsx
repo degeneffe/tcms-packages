@@ -1,5 +1,5 @@
-import type { ExecutionStatusBarProps } from './types.ts'
-import { colors } from '../tokens.ts'
+import type { ExecutionStatusBarProps } from './types'
+import { colors } from '../tokens'
 
 const COLORS: Record<string, string> = {
   pass: colors.statusPass,

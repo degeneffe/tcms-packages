@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
-import { TagChip } from '../TagChip/TagChip.web.tsx'
+import { TagChip } from '../TagChip/TagChip.web'
 
 describe('TagChip (web)', () => {
   it('renders tag name', () => {

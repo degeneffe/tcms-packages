@@ -1,5 +1,5 @@
-import type { StatusBadgeProps } from './types.ts'
-import { colors } from '../tokens.ts'
+import type { StatusBadgeProps } from './types'
+import { colors } from '../tokens'
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string }> = {
   pass:       { label: 'Pass',       bg: colors.statusPass,    text: 'white' },
