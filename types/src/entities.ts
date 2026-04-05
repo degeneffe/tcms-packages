@@ -64,6 +64,7 @@ export interface TestCase {
   steps: TestStep[]
   tags: Tag[]
   createdBy: string
+  deletedAt: string | null
   createdAt: string
   updatedAt: string
 }
