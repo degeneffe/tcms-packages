@@ -106,6 +106,7 @@ export interface UpdateTestCaseRequest {
   status?: 'draft' | 'active' | 'deprecated'
   gherkinRaw?: string
   preconditions?: string
+  sectionId?: string
   steps?: Array<{ orderIndex: number; action: string; expected: string }>
   tagIds?: string[]
 }
@@ -163,6 +164,22 @@ export interface UpdateCycleRequest {
   name?: string
   description?: string
   environment?: string
+}
+
+export interface CycleComparisonData {
+  cycleId: string
+  cycleName: string
+  environment: string | null
+  status: string
+  startedAt: string | null
+  completedAt: string | null
+  total: number
+  pass: number
+  fail: number
+  skip: number
+  blocked: number
+  pending: number
+  passRate: number
 }
 
 // ─── Test Execution DTOs ───────────────────────────────────────────────────
