@@ -46,6 +46,27 @@ export interface RefreshRequest {
   refreshToken: string
 }
 
+// ─── API Token DTOs ───────────────────────────────────────────────────────
+
+export interface ApiToken {
+  id: string
+  userId: string
+  name: string
+  createdAt: string
+  expiresAt: string | null
+}
+
+export interface CreateApiTokenRequest {
+  userId: string
+  name: string
+  expiresAt: string | null
+}
+
+export interface ApiTokenResponse {
+  token: string
+  apiToken: ApiToken
+}
+
 // ─── Project DTOs ──────────────────────────────────────────────────────────
 
 export interface CreateProjectRequest {
