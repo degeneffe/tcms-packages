@@ -6,15 +6,6 @@
   "exports": {
     "./tokens": {
       "import": "./src/tokens.ts"
-    },
-    "./StatusBadge": {
-      "import": "./src/StatusBadge/index.ts"
-    },
-    "./TagChip": {
-      "import": "./src/TagChip/index.ts"
-    },
-    "./ExecutionStatusBar": {
-      "import": "./src/ExecutionStatusBar/index.ts"
     }
   },
   "scripts": {
