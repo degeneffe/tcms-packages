@@ -261,6 +261,43 @@ export interface CycleTrendPoint {
   }
 }
 
+// ─── Dashboard DTOs ───────────────────────────────────────────────────────────
+
+export interface DashboardProject {
+  id: string
+  name: string
+  updatedAt: string
+}
+
+export interface DashboardCycle {
+  id: string
+  name: string
+  progress: number
+}
+
+export interface DashboardStats {
+  totalProjects: number
+  totalTestCases: number
+  totalTestPlans: number
+  passRate: number
+}
+
+export interface DashboardRecentActivity {
+  type: 'test_case' | 'execution_cycle' | 'test_plan'
+  id: string
+  name: string
+  projectId: string
+  projectName: string
+  timestamp: string
+}
+
+export interface DashboardResponse {
+  recentProjects: DashboardProject[]
+  inProgressCycles: DashboardCycle[]
+  stats: DashboardStats
+  recentActivity: DashboardRecentActivity[]
+}
+
 // ─── Global Test Case List DTOs ─────────────────────────────────────────────
 
 export interface GlobalTestCaseItem {
