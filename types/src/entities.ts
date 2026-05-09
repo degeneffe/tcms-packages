@@ -160,6 +160,15 @@ export interface TestCaseComment {
   updatedAt: string
 }
 
+export interface ProjectMember {
+  userId: string
+  projectId: string
+  role: UserRole
+  createdAt: string
+  name: string
+  email: string
+}
+
 export interface ProjectStats {
   totalTestCases: number
   activeTestCases: number
