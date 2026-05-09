@@ -69,15 +69,35 @@ export interface ApiTokenResponse {
 
 // ─── Project DTOs ──────────────────────────────────────────────────────────
 
+export interface ProjectMemberInput {
+  email: string
+  role?: 'admin' | 'manager' | 'tester' | 'viewer'
+}
+
 export interface CreateProjectRequest {
   name: string
   description?: string
+  members?: ProjectMemberInput[]
 }
 
 export interface UpdateProjectRequest {
   name?: string
   description?: string
   isArchived?: boolean
+}
+
+export interface AddMemberRequest {
+  userId?: string
+  email?: string
+  role?: 'admin' | 'manager' | 'tester' | 'viewer'
+}
+
+export interface UpdateMemberRoleRequest {
+  role: 'admin' | 'manager' | 'tester' | 'viewer'
+}
+
+export interface UpdateMembersRequest {
+  members: Array<{ userId: string; role: 'admin' | 'manager' | 'tester' | 'viewer' }>
 }
 
 // ─── Tag DTOs ──────────────────────────────────────────────────────────────
