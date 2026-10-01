@@ -1,4 +1,4 @@
-import type { Priority, TestCaseType, ExecutionStatus } from './enums.js'
+import type { Priority, TestCaseType, ExecutionStatus, UserRole } from './enums.js'
 
 // ─── Pagination ────────────────────────────────────────────────────────────
 
@@ -98,6 +98,17 @@ export interface UpdateMemberRoleRequest {
 
 export interface UpdateMembersRequest {
   members: Array<{ userId: string; role: 'admin' | 'manager' | 'tester' | 'viewer' }>
+}
+
+export interface UserProjectSummary {
+  projectId: string
+  name: string
+  slug: string
+  role: UserRole
+}
+
+export interface AssignUserProjectsRequest {
+  projectIds: string[]
 }
 
 // ─── Tag DTOs ──────────────────────────────────────────────────────────────
