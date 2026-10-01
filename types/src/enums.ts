@@ -6,6 +6,12 @@ export const ROLE_PERMISSIONS = {
   admin: ['admin'] as UserRole[],
 } as const
 
+export const PROJECT_ADMIN_ROLES = ['admin'] as UserRole[]
+
+export function canManageProjectMembers(role: UserRole | string | null | undefined): boolean {
+  return role != null && (PROJECT_ADMIN_ROLES as string[]).includes(role)
+}
+
 export type TestCaseType = 'gherkin' | 'script'
 
 export type TestCaseStatus = 'draft' | 'active' | 'deprecated'
