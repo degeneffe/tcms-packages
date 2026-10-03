@@ -1,4 +1,4 @@
-import type { Priority, TestCaseType, ExecutionStatus, UserRole } from './enums.js'
+import type { CustomFieldType, Priority, TestCaseType, ExecutionStatus, UserRole } from './enums.js'
 
 // ─── Pagination ────────────────────────────────────────────────────────────
 
@@ -135,6 +135,26 @@ export interface UpdateSectionRequest {
   description?: string
 }
 
+// ─── Custom Field DTOs ─────────────────────────────────────────────────────
+
+export interface CreateCustomFieldDefinitionRequest {
+  name: string
+  key: string
+  type: CustomFieldType
+  options?: string[]
+  required?: boolean
+  displayOrder?: number
+}
+
+export interface UpdateCustomFieldDefinitionRequest {
+  name?: string
+  key?: string
+  type?: CustomFieldType
+  options?: string[]
+  required?: boolean
+  displayOrder?: number
+}
+
 // ─── Test Case DTOs ────────────────────────────────────────────────────────
 
 export interface CreateTestCaseRequest {
@@ -149,6 +169,7 @@ export interface CreateTestCaseRequest {
   preconditions?: string
   steps?: Array<{ orderIndex: number; action: string; expected: string }>
   tagIds?: string[]
+  customFields?: Record<string, string | string[]>
 }
 
 export interface UpdateTestCaseRequest {
@@ -161,6 +182,7 @@ export interface UpdateTestCaseRequest {
   sectionId?: string
   steps?: Array<{ orderIndex: number; action: string; expected: string }>
   tagIds?: string[]
+  customFields?: Record<string, string | string[]>
 }
 
 export interface ValidateGherkinRequest {

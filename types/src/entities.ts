@@ -1,5 +1,6 @@
 import type {
   AttachmentEntityType,
+  CustomFieldType,
   CycleStatus,
   ExecutionStatus,
   Priority,
@@ -63,10 +64,32 @@ export interface TestCase {
   preconditions: string | null
   steps: TestStep[]
   tags: Tag[]
+  customFields?: Record<string, string | string[]>
   createdBy: string
   deletedAt: string | null
   createdAt: string
   updatedAt: string
+}
+
+export interface CustomFieldDefinition {
+  id: string
+  projectId: string
+  name: string
+  key: string
+  type: CustomFieldType
+  options: string[]
+  required: boolean
+  displayOrder: number
+  deletedAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CustomFieldValue {
+  id: string
+  testCaseId: string
+  fieldId: string
+  value: string | string[]
 }
 
 export interface TestStep {
