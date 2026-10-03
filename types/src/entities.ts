@@ -148,6 +148,8 @@ export interface TestExecution {
     type: TestCaseType
     gherkinRaw: string | null
     steps: Array<{ id: string; orderIndex: number; action: string; expected: string }>
+    /** Values of the project's configurable custom fields for this test case. */
+    customFields?: Record<string, string | string[]>
   } | null
 }
 
