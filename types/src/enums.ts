@@ -8,7 +8,7 @@ export const ROLE_PERMISSIONS = {
 
 export const PROJECT_ADMIN_ROLES = ['admin'] as UserRole[]
 
-export function canManageProjectMembers(role: UserRole | string | null | undefined): boolean {
+export function canManageProjectMembers(role: string | null | undefined): boolean {
   return role != null && (PROJECT_ADMIN_ROLES as string[]).includes(role)
 }
 

@@ -58,7 +58,7 @@ export interface TestCase {
   description: string | null
   // Gherkin fields
   gherkinRaw: string | null
-  gherkinAst: unknown | null
+  gherkinAst: unknown
   featureName: string | null
   // Script fields
   preconditions: string | null
@@ -147,7 +147,7 @@ export interface TestExecution {
   testCase?: {
     type: TestCaseType
     gherkinRaw: string | null
-    steps: Array<{ id: string; orderIndex: number; action: string; expected: string }>
+    steps: { id: string; orderIndex: number; action: string; expected: string }[]
     /** Values of the project's configurable custom fields for this test case. */
     customFields?: Record<string, string | string[]>
   } | null

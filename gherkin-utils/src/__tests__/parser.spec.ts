@@ -45,11 +45,11 @@ const FEATURE_WITH_DATATABLE = `Feature: Users
 const FEATURE_WITH_DOCSTRING = `Feature: API
   Scenario: Post JSON body
     When I send a POST request with body:
-      \"\"\"
+      """
       {
         "name": "test"
       }
-      \"\"\"
+      """
     Then the response status is 200`
 
 const FEATURE_WITH_RULE = `Feature: Premium users
