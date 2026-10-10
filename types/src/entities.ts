@@ -1,5 +1,6 @@
 import type {
   AttachmentEntityType,
+  CustomFieldType,
   CycleStatus,
   ExecutionStatus,
   Priority,
@@ -57,16 +58,38 @@ export interface TestCase {
   description: string | null
   // Gherkin fields
   gherkinRaw: string | null
-  gherkinAst: unknown | null
+  gherkinAst: unknown
   featureName: string | null
   // Script fields
   preconditions: string | null
   steps: TestStep[]
   tags: Tag[]
+  customFields?: Record<string, string | string[]>
   createdBy: string
   deletedAt: string | null
   createdAt: string
   updatedAt: string
+}
+
+export interface CustomFieldDefinition {
+  id: string
+  projectId: string
+  name: string
+  key: string
+  type: CustomFieldType
+  options: string[]
+  required: boolean
+  displayOrder: number
+  deletedAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CustomFieldValue {
+  id: string
+  testCaseId: string
+  fieldId: string
+  value: string | string[]
 }
 
 export interface TestStep {
@@ -124,7 +147,9 @@ export interface TestExecution {
   testCase?: {
     type: TestCaseType
     gherkinRaw: string | null
-    steps: Array<{ id: string; orderIndex: number; action: string; expected: string }>
+    steps: { id: string; orderIndex: number; action: string; expected: string }[]
+    /** Values of the project's configurable custom fields for this test case. */
+    customFields?: Record<string, string | string[]>
   } | null
 }
 

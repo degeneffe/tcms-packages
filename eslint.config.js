@@ -8,7 +8,9 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['*.config.js', '*.config.ts'],
+        },
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -22,6 +24,12 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['**/dist/', '**/node_modules/', '**/coverage/', '**/.turbo/'],
+    files: ['gherkin-utils/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+    },
+  },
+  {
+    ignores: ['**/dist/', '**/node_modules/', '**/coverage/', '**/.turbo/', 'eslint.config.js', '**/vitest.config.ts'],
   },
 )
