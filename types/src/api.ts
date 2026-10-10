@@ -1,3 +1,4 @@
+import type { CustomFieldDefinition, CustomFieldValue } from './entities.js'
 import type { CustomFieldType, Priority, TestCaseType, ExecutionStatus, UserRole } from './enums.js'
 
 // ─── Pagination ────────────────────────────────────────────────────────────
@@ -97,7 +98,7 @@ export interface UpdateMemberRoleRequest {
 }
 
 export interface UpdateMembersRequest {
-  members: Array<{ userId: string; role: 'admin' | 'manager' | 'tester' | 'viewer' }>
+  members: { userId: string; role: 'admin' | 'manager' | 'tester' | 'viewer' }[]
 }
 
 export interface UserProjectSummary {
@@ -155,6 +156,26 @@ export interface UpdateCustomFieldDefinitionRequest {
   displayOrder?: number
 }
 
+export interface DeleteCustomFieldDefinitionRequest {
+  fieldId: string
+}
+
+export interface SetCustomFieldValueRequest {
+  value: string | string[]
+}
+
+export interface UpdateCustomFieldValueRequest {
+  value: string | string[]
+}
+
+export type CustomFieldDefinitionResponse = SingleResponse<CustomFieldDefinition>
+
+export type CustomFieldDefinitionListResponse = SingleResponse<CustomFieldDefinition[]>
+
+export type CustomFieldValueResponse = SingleResponse<CustomFieldValue>
+
+export type CustomFieldValueListResponse = SingleResponse<CustomFieldValue[]>
+
 // ─── Test Case DTOs ────────────────────────────────────────────────────────
 
 export interface CreateTestCaseRequest {
@@ -167,7 +188,7 @@ export interface CreateTestCaseRequest {
   gherkinRaw?: string
   // Script
   preconditions?: string
-  steps?: Array<{ orderIndex: number; action: string; expected: string }>
+  steps?: { orderIndex: number; action: string; expected: string }[]
   tagIds?: string[]
   customFields?: Record<string, string | string[]>
 }
@@ -180,7 +201,7 @@ export interface UpdateTestCaseRequest {
   gherkinRaw?: string
   preconditions?: string
   sectionId?: string
-  steps?: Array<{ orderIndex: number; action: string; expected: string }>
+  steps?: { orderIndex: number; action: string; expected: string }[]
   tagIds?: string[]
   customFields?: Record<string, string | string[]>
 }
@@ -191,8 +212,8 @@ export interface ValidateGherkinRequest {
 
 export interface ValidateGherkinResponse {
   valid: boolean
-  errors: Array<{ message: string; line?: number; column?: number }>
-  ast: unknown | null
+  errors: { message: string; line?: number; column?: number }[]
+  ast: unknown
 }
 
 export interface TestCaseFilters {
@@ -266,12 +287,12 @@ export interface UpdateExecutionRequest {
 }
 
 export interface BulkUpsertStepResultsRequest {
-  steps: Array<{
+  steps: {
     stepIndex?: number
     stepText: string
     status: ExecutionStatus
     notes?: string
-  }>
+  }[]
 }
 
 // ─── Search DTOs ────────────────────────────────────────────────────────────
