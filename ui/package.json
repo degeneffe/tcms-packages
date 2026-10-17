@@ -4,8 +4,13 @@
   "private": true,
   "type": "module",
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./tokens": {
-      "import": "./src/tokens.ts"
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
     }
   },
   "scripts": {
@@ -13,23 +18,38 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@tcms/types": "workspace:*",
-    "react": "^19.1.0",
-    "react-native": "0.74.5"
+    "@tcms/types": "workspace:*"
   },
+  "//": "react and react-native are declared as OPTIONAL peers, never as dependencies. This package is consumed by both apps/web (React 19, no native) and apps/mobile (Expo SDK 51 / RN 0.74, React 18.2). Pinning either one here forced a React 19 + RN 0.74.5 tree on every consumer — a combination RN 0.74 explicitly rejects, since it hard-peers react@18.2.0. See #226.",
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.1.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^4.4.1",
     "@vitest/coverage-v8": "^3.0.7",
     "jsdom": "^26.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "typescript": "^5.7.3",
     "vitest": "^3.0.7"
   },
   "peerDependencies": {
     "react": ">=18",
+    "react-dom": ">=18",
     "react-native": ">=0.74"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    }
   }
 }
