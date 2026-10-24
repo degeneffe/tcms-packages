@@ -1,0 +1,55 @@
+TCMS Research and Study License
+Version 1.0
+
+SPDX-License-Identifier: LicenseRef-TCMS-Research-and-Study
+
+Copyright (c) 2026 Ignacio Degeneffe
+All rights reserved.
+
+This repository and all of its contents (the "Software") exist for
+research and study purposes only. The Software is a study and research
+project: it is not intended for, and may not be used in or for, any
+commercial activity.
+
+1. Grant of rights
+
+Subject to the terms of this License, the copyright holder grants you a
+worldwide, royalty-free, non-exclusive permission to view, run, copy,
+modify, and redistribute the Software, in source or object form, solely
+for non-commercial purposes such as research, study, teaching, private
+experimentation, and evaluation.
+
+2. Prohibition of commercial use
+
+Any use of the Software, in whole or in part, that is intended for or
+directed towards commercial advantage or monetary compensation is
+prohibited. This includes, without limitation, offering the Software or
+any derivative of it as part of a product or service for sale, license,
+or subscription, and using it to deliver commercial consulting or
+professional services.
+
+3. Conditions
+
+Redistribution of the Software, or of any modified version of it, must
+retain this License and the copyright notice above, and must not
+misrepresent the original author or origin of the Software.
+
+4. Commercial licensing
+
+If you wish to use the Software for any purpose prohibited by section 2,
+you must obtain prior written permission from the copyright holder.
+
+5. Termination
+
+Any use of the Software in violation of this License automatically
+terminates the permissions granted under it.
+
+6. No warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
