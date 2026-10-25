@@ -1,13 +1,13 @@
 # `@tcms/ui`
 
-Shared design tokens and UI components for TCMS.
+Shared design tokens for TCMS.
 
 ## Entry points
 
-| Specifier         | Contents                 | Use it when                                         |
-| ----------------- | ------------------------ | --------------------------------------------------- |
-| `@tcms/ui`        | Tokens + every component | React DOM (apps/web) and React Native (apps/mobile) |
-| `@tcms/ui/tokens` | Tokens only              | You want the palette without the component tree     |
+| Specifier         | Contents                   | Use it when                                     |
+| ----------------- | -------------------------- | ----------------------------------------------- |
+| `@tcms/ui`        | Tokens + future components | React DOM (apps/web)                            |
+| `@tcms/ui/tokens` | Tokens only                | You want the palette without the component tree |
 
 ```tsx
 import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
@@ -17,54 +17,49 @@ import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
 </div>
 ```
 
-## Why `react` is not a dependency
+## Why `react-native` is not a dependency
 
-This package has **two** consumers, and they are not on the same React version:
+This package currently exports **plain JavaScript token objects** — `colors`,
+`spacing`, `typography` and `radii`. Nothing here renders a DOM or a native
+view, so neither `react-dom` nor `react-native` is needed to consume it.
 
-| Consumer                                                | React     | Renderer              |
-| ------------------------------------------------------- | --------- | --------------------- |
-| [apps/web](https://github.com/degeneffe/tcms-frontend)  | `^19.1.0` | `react-dom`           |
-| [apps/mobile](https://github.com/degeneffe/tcms-mobile) | `18.2.0`  | React Native `0.74.5` |
+`react-native` used to be declared as a peer dependency. pnpm resolves peer
+dependencies for workspace packages, so consumers that only need the palette
+still installed the full React Native 0.74 toolchain (~81 MB) and a React
+version the app did not use. The peer was removed in
+[#2](https://github.com/degeneffe/tcms-packages/issues/2).
 
-React Native 0.74 declares `react: 18.2.0` as a **hard** peer dependency. When
-`@tcms/ui` pinned `react: ^19.1.0` and `react-native: 0.74.5` in `dependencies`,
-every install produced a tree where RN 0.74 was linked against React 19 — a
-combination RN explicitly rejects — and forced ~800 packages of native toolchain
-onto a consumer that only needs a colour palette.
-
-So `react`, `react-dom` and `react-native` are declared as **optional peer
-dependencies**. Each app brings its own:
+`react` and `react-dom` remain **optional peer dependencies** for the
+components that will land later:
 
 ```json
 "peerDependencies": {
   "react": ">=18",
-  "react-dom": ">=18",
-  "react-native": ">=0.74"
+  "react-dom": ">=18"
 },
 "peerDependenciesMeta": {
   "react": { "optional": true },
-  "react-dom": { "optional": true },
-  "react-native": { "optional": true }
+  "react-dom": { "optional": true }
 }
 ```
 
-`pnpm-workspace.yaml` in this repo sets `autoInstallPeers: false` to enforce it —
-pnpm defaults it to `true`, which would silently install the optional peers and
-reproduce the original broken tree.
-
-> **Do not move `react` or `react-native` back into `dependencies`.** See
-> [#226](https://github.com/degeneffe/tcms/issues/226).
+> **Do not add `react-native` here.** There is no native code in this package.
+> See [#226](https://github.com/degeneffe/tcms/issues/226).
 
 ## Development
 
 ```bash
 pnpm install          # from the repo root, not this directory
 pnpm --filter @tcms/ui build
-pnpm --filter @tcms/ui test
 ```
 
 `build` runs `tsc` and emits `dist/`. The `exports` map points at `dist`, matching
 `@tcms/types` and `@tcms/gherkin-utils`.
+
+There is no test command yet: the package has no components and no tests. The
+component test harness was removed in
+[#2](https://github.com/degeneffe/tcms-packages/issues/2) so it does not sit
+unused in every consumer install.
 
 ## Status
 

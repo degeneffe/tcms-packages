@@ -1,23 +1,16 @@
 /**
- * `@tcms/ui` — shared design tokens and components.
+ * `@tcms/ui` — shared design tokens.
  *
  * Two entry points:
  *   - `@tcms/ui`         — this module (tokens + whatever components land next)
  *   - `@tcms/ui/tokens`  — tokens only, for consumers that cannot take the
- *                          component tree (e.g. a React Native app with no DOM)
+ *                          component tree
  *
- * Both apps consume this package and they are NOT on the same React version:
- *
- *   | Consumer                  | React    | Renderer          |
- *   |---------------------------|----------|-------------------|
- *   | apps/web/apps/web         | ^19.1.0  | react-dom (DOM)   |
- *   | apps/mobile/apps/mobile   | 18.2.0   | react-native 0.74 |
- *
- * That is why `react`, `react-dom` and `react-native` are optional peer
- * dependencies here and not dependencies: pinning either one installed a
- * React 19 + React Native 0.74.5 tree into every consumer, and RN 0.74
- * hard-peers `react@18.2.0`, so the result was a tree nobody can actually
- * render. Never add them back to `dependencies` (#226).
+ * The package ships plain token objects today: no React, no React Native.
+ * `react` and `react-dom` remain optional peers for the components that will
+ * land later. `react-native` is deliberately absent: declaring it made pnpm
+ * install the full RN 0.74 toolchain into web consumers that only need a
+ * colour palette (#2).
  */
 
 export { colors, spacing, typography, radii } from './tokens'
