@@ -6,7 +6,7 @@ Shared design tokens for TCMS.
 
 | Specifier         | Contents                   | Use it when                                     |
 | ----------------- | -------------------------- | ----------------------------------------------- |
-| `@tcms/ui`        | Tokens + future components | React DOM (apps/web)                            |
+| `@tcms/ui`        | Tokens + future components | The web frontend                                |
 | `@tcms/ui/tokens` | Tokens only                | You want the palette without the component tree |
 
 ```tsx
@@ -44,7 +44,7 @@ components that will land later:
 ```
 
 > **Do not add `react-native` here.** There is no native code in this package.
-> See [#226](https://github.com/degeneffe/tcms/issues/226).
+> See [#2](https://github.com/degeneffe/tcms-packages/issues/2).
 
 ## Development
 
@@ -64,7 +64,6 @@ unused in every consumer install.
 ## Status
 
 `src/` currently ships **tokens only** — `tokens.ts` and the package entry point.
-There are no components yet. Adding them unblocks
-[#122](https://github.com/degeneffe/tcms/issues/122) (component tests) and
-[#123](https://github.com/degeneffe/tcms/issues/123) (token validation), which
-currently have nothing to test against.
+There are no components yet. Adding them, and deciding whether this package
+stays a tokens package or grows a component strategy, is tracked in
+[#5](https://github.com/degeneffe/tcms-packages/issues/5).
