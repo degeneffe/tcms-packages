@@ -11,18 +11,18 @@ via `workspace:*` from their own `apps/*/package.json`.
 
 ## Packages
 
-| Package | Purpose | Used by |
-|---|---|---|
-| `types` (`@tcms/types`) | Shared TypeScript enums, entity interfaces, API DTOs — no runtime deps | backend, frontend, mobile |
-| `gherkin-utils` (`@tcms/gherkin-utils`) | Cucumber/Gherkin parser and validator | backend |
-| `ui` (`@tcms/ui`) | Shared web components + design token system (`@tcms/ui/tokens`) | frontend |
+| Package                                 | Purpose                                                                | Used by                   |
+| --------------------------------------- | ---------------------------------------------------------------------- | ------------------------- |
+| `types` (`@tcms/types`)                 | Shared TypeScript enums, entity interfaces, API DTOs — no runtime deps | backend, frontend, mobile |
+| `gherkin-utils` (`@tcms/gherkin-utils`) | Cucumber/Gherkin parser and validator                                  | backend                   |
+| `ui` (`@tcms/ui`)                       | Shared design tokens (`@tcms/ui/tokens`); components land later        | frontend                  |
 
 ## Development
 
 ```bash
 pnpm install
 pnpm build   # builds all 3 packages via turbo
-pnpm test    # runs gherkin-utils and ui test suites
+pnpm test    # runs the gherkin-utils test suite
 ```
 
 ## Updating a consumer repo after a change here

@@ -2,13 +2,11 @@ packages:
   - '*'
 
 # pnpm defaults `autoInstallPeers` to true, which quietly installs *optional*
-# peers too. That defeats the point of declaring react / react-dom /
-# react-native as optional peers in packages/ui: the workspace still built a
-# react-native 0.74.5 tree bound to react@19.2.7, a combination RN 0.74
-# hard-peers against and explicitly rejects (#226).
-#
-# Consumers already declare their own react (apps/web: ^19.1.0, apps/mobile:
-# 18.2.0). A library must not second-guess which one it is running under.
+# peers too. `@tcms/ui` declares react / react-dom as optional peers for the
+# components that will land later; the workspace must not pick a React version
+# for consumers that already bring their own (apps/web: ^19.1.0, apps/mobile:
+# 18.2.0). Keep this off so a library never second-guesses the framework a
+# consumer runs under.
 autoInstallPeers: false
 
 onlyBuiltDependencies:
