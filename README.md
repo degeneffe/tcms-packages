@@ -25,6 +25,19 @@ pnpm build   # builds all 3 packages via turbo
 pnpm test    # runs the gherkin-utils test suite
 ```
 
+## Documentation
+
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — setup, package contracts, design system and versioning.
+- [`AGENTS.md`](./AGENTS.md) — repository map and rules for AI coding agents.
+- [`ui/README.md`](./ui/README.md) — `@tcms/ui` entry points and scope.
+
+## Design tokens
+
+Design values live in [`ui/src/tokens.ts`](./ui/src/tokens.ts) and are consumed
+as `@tcms/ui/tokens`. That file is the canonical source of truth for colours,
+spacing, typography and radii; see
+[`CONTRIBUTING.md`](./CONTRIBUTING.md#design-system) for the rules and examples.
+
 ## Updating a consumer repo after a change here
 
 Each consumer repo pins this repo to a specific commit via its submodule
