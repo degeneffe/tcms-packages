@@ -25,8 +25,8 @@ view, so neither `react-dom` nor `react-native` is needed to consume it.
 
 `react-native` used to be declared as a peer dependency. pnpm resolves peer
 dependencies for workspace packages, so consumers that only need the palette
-still installed the full React Native 0.74 toolchain (~81 MB) and a React
-version the app did not use. The peer was removed in
+still installed the full React Native 0.74 toolchain and a React version the
+app did not use. The peer was removed in
 [#2](https://github.com/degeneffe/tcms-packages/issues/2).
 
 `react` and `react-dom` remain **optional peer dependencies** for the
