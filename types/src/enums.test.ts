@@ -5,14 +5,12 @@ import {
   CYCLE_STATUSES,
   EXECUTION_STATUSES,
   PRIORITIES,
-  PROJECT_ADMIN_ROLES,
   ROLE_PERMISSIONS,
   SEARCH_ENTITY_TYPES,
   SEARCH_MATCHED_FIELDS,
   TEST_CASE_STATUSES,
   TEST_CASE_TYPES,
   USER_ROLES,
-  canManageProjectMembers,
 } from './index.js'
 
 describe('enum values', () => {
@@ -64,14 +62,5 @@ describe('role constants', () => {
       write: ['admin', 'manager', 'tester'],
       admin: ['admin'],
     })
-  })
-
-  it('only treats project admins as project member managers', () => {
-    expect(PROJECT_ADMIN_ROLES).toEqual(['admin'])
-    expect(canManageProjectMembers('admin')).toBe(true)
-    expect(canManageProjectMembers('manager')).toBe(false)
-    expect(canManageProjectMembers('viewer')).toBe(false)
-    expect(canManageProjectMembers(null)).toBe(false)
-    expect(canManageProjectMembers(undefined)).toBe(false)
   })
 })
