@@ -21,7 +21,7 @@
   },
   "//": "react and react-dom stay OPTIONAL peers for the components that will land later. react-native is deliberately absent: this package exports plain token objects and renders nothing native, so declaring RN only made consumers install the whole 0.74 toolchain (#2).",
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "react": ">=18",
