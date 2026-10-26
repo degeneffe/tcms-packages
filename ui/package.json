@@ -1,6 +1,6 @@
 {
   "name": "@degeneffe/tcms-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "repository": {
     "type": "git",
@@ -25,9 +25,6 @@
   },
   "scripts": {
     "build": "tsc"
-  },
-  "dependencies": {
-    "@degeneffe/tcms-types": "workspace:*"
   },
   "//": "react and react-dom stay OPTIONAL peers for the components that will land later. react-native is deliberately absent: this package exports plain token objects and renders nothing native, so declaring RN only made consumers install the whole 0.74 toolchain (#2).",
   "devDependencies": {
