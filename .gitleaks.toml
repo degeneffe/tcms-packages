@@ -1,0 +1,8 @@
+# Extend the upstream ruleset instead of replacing it. Keeping the defaults
+# means new gitleaks releases add coverage without editing this file.
+#
+# Do not add repository-wide allowlists here: a broad path or regex allowlist
+# silently disables detection for every rule, which is how secret scanning
+# becomes decorative.
+[extend]
+useDefault = true
