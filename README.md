@@ -22,7 +22,8 @@ via `workspace:*` from their own `apps/*/package.json`.
 ```bash
 pnpm install
 pnpm build   # builds all 3 packages via turbo
-pnpm test    # runs the gherkin-utils test suite
+pnpm test    # runs the types and gherkin-utils test suites
+pnpm typecheck
 ```
 
 ## Documentation
