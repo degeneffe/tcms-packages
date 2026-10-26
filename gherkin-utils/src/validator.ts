@@ -18,11 +18,12 @@ export function extractFeatureName(ast: GherkinDocument | null): string | null {
 export function extractTags(ast: GherkinDocument | null): string[] {
   if (!ast?.feature) return []
   const featureTags = ast.feature.tags?.map((t) => t.name) ?? []
-  const scenarioTags = ast.feature.children?.flatMap((child) => {
-    if (child.scenario) return child.scenario.tags?.map((t) => t.name) ?? []
-    if (child.rule) return child.rule.tags?.map((t) => t.name) ?? []
-    return []
-  }) ?? []
+  const scenarioTags =
+    ast.feature.children?.flatMap((child) => {
+      if (child.scenario) return child.scenario.tags?.map((t) => t.name) ?? []
+      if (child.rule) return child.rule.tags?.map((t) => t.name) ?? []
+      return []
+    }) ?? []
   return [...new Set([...featureTags, ...scenarioTags])]
 }
 
