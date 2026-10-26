@@ -18,7 +18,7 @@ process and install instructions.
 | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------- |
 | `@degeneffe/tcms-types` (`types`, imported as `@tcms/types`)                         | Shared TypeScript enums, entity interfaces, API DTOs — no runtime deps | backend, frontend, mobile |
 | `@degeneffe/tcms-gherkin-utils` (`gherkin-utils`, imported as `@tcms/gherkin-utils`) | Cucumber/Gherkin parser and validator                                  | backend                   |
-| `@degeneffe/tcms-ui` (`ui`, imported as `@tcms/ui`)                                  | Shared design tokens (`@tcms/ui/tokens`); components land later        | frontend                  |
+| `@degeneffe/tcms-tokens` (`tokens`, imported as `@tcms/tokens`)                      | Shared design tokens, zero runtime dependencies                        | frontend                  |
 
 ## Development
 
@@ -33,12 +33,12 @@ pnpm typecheck
 
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — setup, package contracts, design system and versioning.
 - [`AGENTS.md`](./AGENTS.md) — repository map and rules for AI coding agents.
-- [`ui/README.md`](./ui/README.md) — `@tcms/ui` entry points and scope.
+- [`tokens/README.md`](./tokens/README.md) — `@tcms/tokens` entry points and scope.
 
 ## Design tokens
 
-Design values live in [`ui/src/tokens.ts`](./ui/src/tokens.ts) and are consumed
-as `@tcms/ui/tokens`. That file is the canonical source of truth for colours,
+Design values live in [`tokens/src/tokens.ts`](./tokens/src/tokens.ts) and are consumed
+as `@tcms/tokens`. That file is the canonical source of truth for colours,
 spacing, typography and radii; see
 [`CONTRIBUTING.md`](./CONTRIBUTING.md#design-system) for the rules and examples.
 

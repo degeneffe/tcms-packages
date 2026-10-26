@@ -16,7 +16,7 @@ Report it privately through GitHub's vulnerability reporting:
 
 Include, when possible:
 
-- the affected package (`@tcms/types`, `@tcms/gherkin-utils`, `@tcms/ui`) and
+- the affected package (`@tcms/types`, `@tcms/gherkin-utils`, `@tcms/tokens`) and
   entry point;
 - reproduction steps or a proof of concept;
 - the impact you expect;
@@ -30,7 +30,7 @@ before disclosing the issue publicly.
 
 In scope:
 
-- source and package configuration in `types/`, `gherkin-utils/` and `ui/`;
+- source and package configuration in `types/`, `gherkin-utils/` and `tokens/`;
 - this repository's workflows, lockfile and dependency overrides.
 
 Out of scope:

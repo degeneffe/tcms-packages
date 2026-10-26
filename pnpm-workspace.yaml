@@ -2,11 +2,8 @@ packages:
   - '*'
 
 # pnpm defaults `autoInstallPeers` to true, which quietly installs *optional*
-# peers too. `@tcms/ui` declares react / react-dom as optional peers for the
-# components that will land later; the workspace must not pick a React version
-# for consumers that already bring their own (apps/web: ^19.1.0, apps/mobile:
-# 18.2.0). Keep this off so a library never second-guesses the framework a
-# consumer runs under.
+# peers too. Keep this off so a library never picks a framework version for
+# consumers that already bring their own (apps/web: ^19.1.0, apps/mobile: 18.2.0).
 autoInstallPeers: false
 
 onlyBuiltDependencies:
