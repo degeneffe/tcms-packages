@@ -1,8 +1,19 @@
 {
-  "name": "@tcms/gherkin-utils",
-  "version": "0.0.1",
-  "private": true,
+  "name": "@degeneffe/tcms-gherkin-utils",
+  "version": "0.1.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/degeneffe/tcms-packages.git",
+    "directory": "gherkin-utils"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "dist",
+    "!dist/**/__tests__"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

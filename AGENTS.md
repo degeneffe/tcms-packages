@@ -17,11 +17,11 @@ their submodule pointer.
 
 ## Layout
 
-| Directory        | Package               | Build output | Public entry points           |
-| ---------------- | --------------------- | ------------ | ----------------------------- |
-| `types/`         | `@tcms/types`         | `dist/`      | `@tcms/types`                 |
-| `gherkin-utils/` | `@tcms/gherkin-utils` | `dist/`      | `@tcms/gherkin-utils`         |
-| `ui/`            | `@tcms/ui`            | `dist/`      | `@tcms/ui`, `@tcms/ui/tokens` |
+| Directory        | Package                         | Build output | Consumer import specifiers    |
+| ---------------- | ------------------------------- | ------------ | ----------------------------- |
+| `types/`         | `@degeneffe/tcms-types`         | `dist/`      | `@tcms/types`                 |
+| `gherkin-utils/` | `@degeneffe/tcms-gherkin-utils` | `dist/`      | `@tcms/gherkin-utils`         |
+| `ui/`            | `@degeneffe/tcms-ui`            | `dist/`      | `@tcms/ui`, `@tcms/ui/tokens` |
 
 Source lives in each package's `src/`; public API is re-exported from
 `src/index.ts` and declared in that package's `package.json` `exports` map.
@@ -39,10 +39,10 @@ pnpm test                                   # turbo: types + gherkin-utils suite
 pnpm typecheck                              # turbo: tsc --noEmit per package
 pnpm lint                                   # ESLint + Prettier check
 pnpm lint:fix
-pnpm --filter @tcms/types test
-pnpm --filter @tcms/types typecheck
-pnpm --filter @tcms/gherkin-utils test
-pnpm --filter @tcms/ui build
+pnpm --filter @degeneffe/tcms-types test
+pnpm --filter @degeneffe/tcms-types typecheck
+pnpm --filter @degeneffe/tcms-gherkin-utils test
+pnpm --filter @degeneffe/tcms-ui build
 ```
 
 Do not add a `test` script to `ui/` unless components and tests actually exist.
@@ -88,15 +88,18 @@ import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
 
 ## Versioning
 
-- All three packages are `private: true` and declare `version: 0.0.1`. That
-  field is a placeholder, not the distributed version.
-- The effective version is the git commit pinned by each consumer's submodule.
-- There is no registry publication yet (issue #9). Do not add Changesets,
-  release workflows, version bumps or publish commands unless the task is
-  explicitly about #9.
-- Public API changes are breaking for consumers even when the `version` field
-  does not change. Call them out in the pull request and tell consumers to bump
-  the submodule pointer.
+- The packages are published to GitHub Packages as `@degeneffe/tcms-types`,
+  `@degeneffe/tcms-gherkin-utils` and `@degeneffe/tcms-ui` (the scope must equal
+  the repo owner). Consumers alias them back to `@tcms/*`.
+- The `version` field is the released version. Bump it by hand in the PR that
+  changes a package; `.github/workflows/publish.yml` publishes every version not
+  yet in the registry when it lands on `main`. Published versions are immutable:
+  fix forward with a patch release.
+- Do not add Changesets, semantic-release or registry tokens. Never commit a
+  token to `.npmrc`; CI uses `GITHUB_TOKEN`.
+- Public API changes are breaking for consumers. Call them out in the pull
+  request. Submodule consumers still bump their submodule pointer.
+- Full process: [`CONTRIBUTING.md`](./CONTRIBUTING.md#versioning-and-releases).
 
 ## Working rules
 

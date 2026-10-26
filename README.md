@@ -3,19 +3,22 @@
 Shared TypeScript packages for TCMS (Test Case Management System), split out of
 the [tcms](https://github.com/degeneffe/tcms) monorepo.
 
-Consumed as a **git submodule** at `packages/` by
+Published to **GitHub Packages** and consumed by
 [tcms-backend](https://github.com/degeneffe/tcms-backend),
 [tcms-frontend](https://github.com/degeneffe/tcms-frontend) and
-[tcms-mobile](https://github.com/degeneffe/tcms-mobile) — each references it
-via `workspace:*` from their own `apps/*/package.json`.
+[tcms-mobile](https://github.com/degeneffe/tcms-mobile), which alias them back
+to the short `@tcms/*` import specifiers. They can also still be mounted as a
+**git submodule** at `packages/`. See
+[`CONTRIBUTING.md`](./CONTRIBUTING.md#versioning-and-releases) for the release
+process and install instructions.
 
 ## Packages
 
-| Package                                 | Purpose                                                                | Used by                   |
-| --------------------------------------- | ---------------------------------------------------------------------- | ------------------------- |
-| `types` (`@tcms/types`)                 | Shared TypeScript enums, entity interfaces, API DTOs — no runtime deps | backend, frontend, mobile |
-| `gherkin-utils` (`@tcms/gherkin-utils`) | Cucumber/Gherkin parser and validator                                  | backend                   |
-| `ui` (`@tcms/ui`)                       | Shared design tokens (`@tcms/ui/tokens`); components land later        | frontend                  |
+| Package (directory)                                                                  | Purpose                                                                | Used by                   |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------- |
+| `@degeneffe/tcms-types` (`types`, imported as `@tcms/types`)                         | Shared TypeScript enums, entity interfaces, API DTOs — no runtime deps | backend, frontend, mobile |
+| `@degeneffe/tcms-gherkin-utils` (`gherkin-utils`, imported as `@tcms/gherkin-utils`) | Cucumber/Gherkin parser and validator                                  | backend                   |
+| `@degeneffe/tcms-ui` (`ui`, imported as `@tcms/ui`)                                  | Shared design tokens (`@tcms/ui/tokens`); components land later        | frontend                  |
 
 ## Development
 
@@ -39,10 +42,11 @@ as `@tcms/ui/tokens`. That file is the canonical source of truth for colours,
 spacing, typography and radii; see
 [`CONTRIBUTING.md`](./CONTRIBUTING.md#design-system) for the rules and examples.
 
-## Updating a consumer repo after a change here
+## Updating a submodule consumer after a change here
 
-Each consumer repo pins this repo to a specific commit via its submodule
-pointer. After pushing a change here, update the pointer in each consumer:
+Consumers installing from the registry just bump the version range. A consumer
+that still mounts this repo as a submodule pins a specific commit; after pushing
+a change here, update the pointer:
 
 ```bash
 cd tcms-backend/packages    # or tcms-frontend/packages, tcms-mobile/packages
