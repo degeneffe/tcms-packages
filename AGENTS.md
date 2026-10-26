@@ -17,11 +17,11 @@ their submodule pointer.
 
 ## Layout
 
-| Directory        | Package                         | Build output | Consumer import specifiers    |
-| ---------------- | ------------------------------- | ------------ | ----------------------------- |
-| `types/`         | `@degeneffe/tcms-types`         | `dist/`      | `@tcms/types`                 |
-| `gherkin-utils/` | `@degeneffe/tcms-gherkin-utils` | `dist/`      | `@tcms/gherkin-utils`         |
-| `ui/`            | `@degeneffe/tcms-ui`            | `dist/`      | `@tcms/ui`, `@tcms/ui/tokens` |
+| Directory        | Package                         | Build output | Consumer import specifiers |
+| ---------------- | ------------------------------- | ------------ | -------------------------- |
+| `types/`         | `@degeneffe/tcms-types`         | `dist/`      | `@tcms/types`              |
+| `gherkin-utils/` | `@degeneffe/tcms-gherkin-utils` | `dist/`      | `@tcms/gherkin-utils`      |
+| `tokens/`        | `@degeneffe/tcms-tokens`        | `dist/`      | `@tcms/tokens`             |
 
 Source lives in each package's `src/`; public API is re-exported from
 `src/index.ts` and declared in that package's `package.json` `exports` map.
@@ -42,45 +42,45 @@ pnpm lint:fix
 pnpm --filter @degeneffe/tcms-types test
 pnpm --filter @degeneffe/tcms-types typecheck
 pnpm --filter @degeneffe/tcms-gherkin-utils test
-pnpm --filter @degeneffe/tcms-ui build
+pnpm --filter @degeneffe/tcms-tokens build
 ```
 
-Do not add a `test` script to `ui/` unless components and tests actually exist.
+Do not add a `test` script to `tokens/` unless it gains logic worth testing.
 `types` and `gherkin-utils` have tests today.
 
 ## Consumer / import contract
 
-| Consumer        | May import                                                 |
-| --------------- | ---------------------------------------------------------- |
-| `tcms-backend`  | `@tcms/types`, `@tcms/gherkin-utils`                       |
-| `tcms-frontend` | `@tcms/types`, `@tcms/ui/tokens` (and `@tcms/ui` later)    |
-| `tcms-mobile`   | `@tcms/types` only — never `@tcms/ui/tokens` or `@tcms/ui` |
+| Consumer        | May import                                |
+| --------------- | ----------------------------------------- |
+| `tcms-backend`  | `@tcms/types`, `@tcms/gherkin-utils`      |
+| `tcms-frontend` | `@tcms/types`, `@tcms/tokens`             |
+| `tcms-mobile`   | `@tcms/types` only — never `@tcms/tokens` |
 
 Rules:
 
 - Import packages through their public entry points, never through another
   package's `src/` or `dist/` path.
 - Keep `@tcms/types` free of runtime dependencies.
-- `@tcms/ui` exports plain token objects today. Do not add `react-native` as a
-  dependency or peer; that was deliberately removed in issue #2. `react` and
-  `react-dom` are optional peers for future components.
+- `@tcms/tokens` is a tokens-only package with zero dependencies or peers. Do not
+  add `react-native` (removed in issue #2) or components; it was renamed from
+  `@tcms/ui` for that reason (issue #5).
 - Mobile uses React Native `StyleSheet`; the web token objects do not apply.
 
 ## Design tokens
 
-The canonical definition is [`ui/src/tokens.ts`](./ui/src/tokens.ts). Consumers
+The canonical definition is [`tokens/src/tokens.ts`](./tokens/src/tokens.ts). Consumers
 import it as:
 
 ```tsx
-import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
+import { colors, spacing, typography, radii } from '@tcms/tokens'
 ```
 
 - All web styles must use token values; never hardcode hex colours or pixel
   literals.
 - Use semantic colours (`colors.statusPass`, `colors.priorityCritical`, …)
   instead of raw values.
-- Add new values to the matching `as const` object in `ui/src/tokens.ts`;
-  `ui/src/index.ts` already re-exports them.
+- Add new values to the matching `as const` object in `tokens/src/tokens.ts`;
+  `tokens/src/index.ts` already re-exports them.
 - Renaming or removing a token is a breaking change for submodule consumers:
   coordinate it and update them.
 - The full reference, categories and examples are in
@@ -89,7 +89,7 @@ import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
 ## Versioning
 
 - The packages are published to GitHub Packages as `@degeneffe/tcms-types`,
-  `@degeneffe/tcms-gherkin-utils` and `@degeneffe/tcms-ui` (the scope must equal
+  `@degeneffe/tcms-gherkin-utils` and `@degeneffe/tcms-tokens` (the scope must equal
   the repo owner). Consumers alias them back to `@tcms/*`.
 - The `version` field is the released version. Bump it by hand in the PR that
   changes a package; `.github/workflows/publish.yml` publishes every version not

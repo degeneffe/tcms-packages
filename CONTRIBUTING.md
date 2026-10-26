@@ -14,7 +14,7 @@ Consumers either mount this repository as a git submodule at `packages/` (pnpm
 | ---------------- | ------------------------------- | ----------------------------- | ------------------------- |
 | `types/`         | `@degeneffe/tcms-types`         | `@tcms/types`                 | backend, frontend, mobile |
 | `gherkin-utils/` | `@degeneffe/tcms-gherkin-utils` | `@tcms/gherkin-utils`         | backend                   |
-| `ui/`            | `@degeneffe/tcms-ui`            | `@tcms/ui`, `@tcms/ui/tokens` | frontend                  |
+| `tokens/`        | `@degeneffe/tcms-tokens`        | `@tcms/tokens`                | frontend                  |
 
 GitHub Packages only accepts a scope equal to the owner of the repository, so the
 published names live under `@degeneffe`. Consumers keep the short `@tcms/*`
@@ -22,8 +22,8 @@ import specifiers through an install alias (see below); only `package.json`
 changes, not source files. Everywhere else in this document, `@tcms/*` means
 the import specifier.
 
-`types/` and `gherkin-utils/` compile to `dist/` with `tsc`; `ui/` builds the
-same way and exposes both a full entry point and a tokens-only entry point.
+`types/` and `gherkin-utils/` compile to `dist/` with `tsc`; `tokens/` builds the
+same way and exposes a single entry point.
 
 ## Getting started
 
@@ -46,7 +46,7 @@ pnpm --filter @degeneffe/tcms-types test
 pnpm --filter @degeneffe/tcms-types typecheck
 pnpm --filter @degeneffe/tcms-gherkin-utils test
 pnpm --filter @degeneffe/tcms-gherkin-utils test:watch
-pnpm --filter @degeneffe/tcms-ui build
+pnpm --filter @degeneffe/tcms-tokens build
 ```
 
 All source is strict TypeScript. Keep `dist/`, `node_modules/`, `coverage/` and
@@ -58,8 +58,8 @@ All source is strict TypeScript. Keep `dist/`, `node_modules/`, `coverage/` and
 
 The design system is a set of **plain JavaScript constants**, not CSS variables,
 Tailwind classes or CSS Modules. The canonical definition is
-[`ui/src/tokens.ts`](./ui/src/tokens.ts); the public import path is
-`@tcms/ui/tokens`.
+[`tokens/src/tokens.ts`](./tokens/src/tokens.ts); the public import path is
+`@tcms/tokens`.
 
 JavaScript constants were chosen over a CSS-based system because TCMS styles
 React components with inline `style={{ ... }}` objects. Tokens give every
@@ -69,7 +69,7 @@ migration away from inline styles.
 ### Importing tokens
 
 ```tsx
-import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
+import { colors, spacing, typography, radii } from '@tcms/tokens'
 
 const buttonStyle: React.CSSProperties = {
   background: colors.primary,
@@ -81,7 +81,7 @@ const buttonStyle: React.CSSProperties = {
 }
 ```
 
-Do not deep-import `ui/src/tokens.ts` from a consumer. `@tcms/ui/tokens` is the
+Do not deep-import `tokens/src/tokens.ts` from a consumer. `@tcms/tokens` is the
 stable entry point and resolves to the built package.
 
 ### Token categories
@@ -125,16 +125,16 @@ from the `statusFail` execution badge.
 - Do not rename or remove an existing token without checking its consumers.
   Consumers pin a specific commit of this repository, so a rename is a breaking
   change that must be coordinated.
-- Add new values to the matching constant in `ui/src/tokens.ts`, keeping
+- Add new values to the matching constant in `tokens/src/tokens.ts`, keeping
   `as const` so literal types survive.
-- `ui/src/index.ts` re-exports the tokens, so no export-map change is needed for
+- `tokens/src/index.ts` re-exports the tokens, so no export-map change is needed for
   a new token value. Rebuild the package after editing it.
 
 ### Mobile
 
 React Native does not support the web inline-style token objects. Mobile
 components use React Native `StyleSheet` and **must not** import
-`@tcms/ui/tokens`.
+`@tcms/tokens`.
 
 ## Package contracts
 
@@ -145,10 +145,9 @@ components use React Native `StyleSheet` and **must not** import
   (`parseFeature`, `validateGherkin`, `extractFeatureName`, `extractTags`,
   `countScenarios`). It depends on `@cucumber/gherkin` and
   `@cucumber/messages`.
-- `@tcms/ui` — currently tokens only. `@tcms/ui` is the future component entry
-  point; `@tcms/ui/tokens` is the tokens-only entry point. `react` and
-  `react-dom` are optional peers; `react-native` is deliberately **not** a peer
-  or dependency (see issue #2).
+- `@tcms/tokens` — design tokens only, with no dependencies or peers (renamed
+  from `@tcms/ui` in issue #5). It ships no components; `react-native` is
+  deliberately **not** a dependency (see issue #2).
 
 Rules for all packages:
 
@@ -262,4 +261,4 @@ request.
 
 - [`README.md`](./README.md) — repository overview and package table.
 - [`AGENTS.md`](./AGENTS.md) — repository map and rules for AI coding agents.
-- [`ui/README.md`](./ui/README.md) — `@tcms/ui` entry points and scope.
+- [`tokens/README.md`](./tokens/README.md) — `@tcms/tokens` entry points and scope.

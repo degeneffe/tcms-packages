@@ -8,7 +8,7 @@
  * inline `style={{ ... }}` objects, but reference token values instead of hardcoded literals.
  *
  * Usage:
- *   import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
+ *   import { colors, spacing, typography, radii } from '@tcms/tokens'
  *   style={{ background: colors.bgSurface, padding: spacing[4], borderRadius: radii.lg }}
  */
 
