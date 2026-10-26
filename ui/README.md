@@ -50,11 +50,11 @@ components that will land later:
 
 ```bash
 pnpm install          # from the repo root, not this directory
-pnpm --filter @tcms/ui build
+pnpm --filter @degeneffe/tcms-ui build
 ```
 
 `build` runs `tsc` and emits `dist/`. The `exports` map points at `dist`, matching
-`@tcms/types` and `@tcms/gherkin-utils`.
+`@degeneffe/tcms-types` and `@degeneffe/tcms-gherkin-utils`.
 
 There is no test command yet: the package has no components and no tests. The
 component test harness was removed in

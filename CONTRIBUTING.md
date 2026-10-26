@@ -4,17 +4,23 @@
 frontend and mobile app. It is a **library workspace**, not a deployable
 application: there is no server, route, database or UI entry point here.
 
-Consumers import this repository as a git submodule mounted at `packages/` and
-link the packages with pnpm `workspace:*`. A change merged here reaches a
-consumer only when that consumer updates its submodule pointer.
+Consumers either mount this repository as a git submodule at `packages/` (pnpm
+`workspace:*`) or install the published packages from GitHub Packages. See
+[Versioning and releases](#versioning-and-releases).
 
 ## Repository layout
 
-| Directory        | Package               | Public entry point            | Consumers                 |
-| ---------------- | --------------------- | ----------------------------- | ------------------------- |
-| `types/`         | `@tcms/types`         | `@tcms/types`                 | backend, frontend, mobile |
-| `gherkin-utils/` | `@tcms/gherkin-utils` | `@tcms/gherkin-utils`         | backend                   |
-| `ui/`            | `@tcms/ui`            | `@tcms/ui`, `@tcms/ui/tokens` | frontend                  |
+| Directory        | Published package               | Import specifier in consumers | Consumers                 |
+| ---------------- | ------------------------------- | ----------------------------- | ------------------------- |
+| `types/`         | `@degeneffe/tcms-types`         | `@tcms/types`                 | backend, frontend, mobile |
+| `gherkin-utils/` | `@degeneffe/tcms-gherkin-utils` | `@tcms/gherkin-utils`         | backend                   |
+| `ui/`            | `@degeneffe/tcms-ui`            | `@tcms/ui`, `@tcms/ui/tokens` | frontend                  |
+
+GitHub Packages only accepts a scope equal to the owner of the repository, so the
+published names live under `@degeneffe`. Consumers keep the short `@tcms/*`
+import specifiers through an install alias (see below); only `package.json`
+changes, not source files. Everywhere else in this document, `@tcms/*` means
+the import specifier.
 
 `types/` and `gherkin-utils/` compile to `dist/` with `tsc`; `ui/` builds the
 same way and exposes both a full entry point and a tokens-only entry point.
@@ -36,11 +42,11 @@ pnpm lint:fix       # autofix both
 Useful scoped commands:
 
 ```bash
-pnpm --filter @tcms/types test
-pnpm --filter @tcms/types typecheck
-pnpm --filter @tcms/gherkin-utils test
-pnpm --filter @tcms/gherkin-utils test:watch
-pnpm --filter @tcms/ui build
+pnpm --filter @degeneffe/tcms-types test
+pnpm --filter @degeneffe/tcms-types typecheck
+pnpm --filter @degeneffe/tcms-gherkin-utils test
+pnpm --filter @degeneffe/tcms-gherkin-utils test:watch
+pnpm --filter @degeneffe/tcms-ui build
 ```
 
 All source is strict TypeScript. Keep `dist/`, `node_modules/`, `coverage/` and
@@ -153,22 +159,80 @@ Rules for all packages:
 - Keep the three packages' `exports` maps aligned: built `dist/` output with
   `types` and `import` conditions.
 
-## Versioning and consuming changes
+## Versioning and releases
 
-All three packages are `private: true` and currently declare `version: 0.0.1`.
-**The version that consumers actually use is this repository's git commit**, not
-the `version` field: each consumer pins a commit through its submodule pointer
-and resolves the packages with `workspace:*`. There is no registry publication
-yet; publishing is tracked in issue #9.
+The packages are published to **GitHub Packages** (`https://npm.pkg.github.com`)
+under the `@degeneffe` scope. The `version` field of each `package.json` is the
+released version, using [SemVer](https://semver.org). While the major is `0`,
+a breaking change bumps the minor and anything else bumps the patch.
 
-Therefore:
+Versioning is **manual**, driven by Conventional Commits; there is no Changesets
+or semantic-release tooling to maintain.
 
-- Do not bump package versions or add release tooling as part of an unrelated
-  change.
-- Treat public API changes as breaking for consumers even if `version` does not
-  move.
-- After a change lands, each affected consumer must update its `packages/`
-  submodule pointer and rebuild.
+### Releasing
+
+1. In the pull request that changes a package, bump that package's `version`
+   (`feat` → minor, `fix` → patch, breaking → minor while `0.x`, major after).
+   If `@degeneffe/tcms-types` changes, also bump the packages that depend on it
+   when they need the new version.
+2. Merge to `main`. [`publish.yml`](./.github/workflows/publish.yml) builds,
+   typechecks and tests everything, then runs `pnpm -r publish`. pnpm skips every
+   version already in the registry, so a merge that does not bump a version
+   publishes nothing and a failed run can simply be re-run.
+3. Check the result under the repository's **Packages** tab.
+
+The workflow authenticates with the job's `GITHUB_TOKEN` (`packages: write`).
+No registry token is stored in the repository; never commit one to `.npmrc`.
+
+### Rollback and patch releases
+
+Published versions are immutable. To fix a bad release, **publish a newer patch**
+(revert or fix, bump `version`, merge). Then mark the bad one so installs warn:
+
+```bash
+npm deprecate @degeneffe/tcms-types@0.1.0 "Broken enum export, use >=0.1.1" \
+  --registry=https://npm.pkg.github.com
+```
+
+A version can be deleted from the package's settings page on GitHub only when it
+leaks something it must not; deleting breaks any consumer lockfile that pins it.
+
+### Consuming from the registry
+
+Consumers map the scope to GitHub Packages and alias the published name to the
+short import specifier, so no source file changes:
+
+```ini
+# .npmrc in the consumer (the token comes from the environment, never the file)
+@degeneffe:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+```
+
+```json
+{
+  "dependencies": {
+    "@tcms/types": "npm:@degeneffe/tcms-types@^0.1.0",
+    "@tcms/gherkin-utils": "npm:@degeneffe/tcms-gherkin-utils@^0.1.0"
+  }
+}
+```
+
+`NODE_AUTH_TOKEN` needs a token with `read:packages`. In CI use `GITHUB_TOKEN`
+with `packages: read`. In a Dockerfile pass it as a BuildKit secret, not a build
+arg, so it never lands in an image layer:
+
+```dockerfile
+RUN --mount=type=secret,id=node_auth_token \
+    NODE_AUTH_TOKEN="$(cat /run/secrets/node_auth_token)" pnpm install --frozen-lockfile
+```
+
+### Migrating a consumer off the submodule
+
+Until a consumer switches to the registry it keeps working with the submodule
+and `workspace:*`, but the workspace package names changed to `@degeneffe/*`.
+Such a consumer must alias the workspace package too
+(`"@tcms/types": "workspace:@degeneffe/tcms-types@*"`) or move to the registry.
+After a change lands, a submodule consumer still updates its pointer:
 
 ```bash
 cd tcms-backend/packages    # or tcms-frontend/packages, tcms-mobile/packages
@@ -178,6 +242,9 @@ cd ..
 git add packages
 git commit -m "chore: bump tcms-packages submodule"
 ```
+
+Treat public API changes as breaking for consumers and call them out in the pull
+request.
 
 ## Commits and pull requests
 

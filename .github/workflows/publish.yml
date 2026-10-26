@@ -1,0 +1,73 @@
+name: Publish
+
+# Publishes every package whose `version` is not yet in GitHub Packages.
+# `pnpm publish -r` skips versions that already exist, so the job is idempotent:
+# merging a change that does not bump a version publishes nothing, and re-running
+# a failed run is safe. Versions are bumped by hand in the PR (see CONTRIBUTING).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'types/**'
+      - 'gherkin-utils/**'
+      - 'ui/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+# Never cancel a publish half way: a later push waits for the running one.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Build, test & publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          run_install: false
+
+      # `registry-url` writes a user-level .npmrc that reads NODE_AUTH_TOKEN,
+      # so no token is ever committed to the repository.
+      - name: Install Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: '@degeneffe'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # A release must be at least as green as a PR: never publish untested code.
+      - name: Build
+        run: pnpm build
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Tests
+        run: pnpm test
+
+      # --no-git-checks: the job runs on a detached HEAD of main, which pnpm's
+      # clean-branch check would otherwise reject.
+      - name: Publish new versions
+        run: pnpm -r publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
