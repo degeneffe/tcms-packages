@@ -7,6 +7,7 @@ settings:
 overrides:
   brace-expansion@^1.0.0: ^1.1.21
   brace-expansion@^5.0.0: ^5.0.12
+  uuid@^9.0.0: ^11.1.1
   vite@^7.0.0: ^7.3.7
   postcss@^8.0.0: ^8.5.23
   nanoid@^3.0.0: ^3.3.18
@@ -1055,8 +1056,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+  uuid@11.1.1:
+    resolution: {integrity: sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==}
     hasBin: true
 
   vite@7.3.7:
@@ -1183,7 +1184,7 @@ snapshots:
       '@types/uuid': 9.0.8
       class-transformer: 0.5.1
       reflect-metadata: 0.2.1
-      uuid: 9.0.1
+      uuid: 11.1.1
 
   '@esbuild/aix-ppc64@0.28.1':
     optional: true
@@ -2041,7 +2042,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  uuid@9.0.1: {}
+  uuid@11.1.1: {}
 
   vite@7.3.7:
     dependencies:
