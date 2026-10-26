@@ -297,9 +297,13 @@ export interface BulkUpsertStepResultsRequest {
 
 // ─── Search DTOs ────────────────────────────────────────────────────────────
 
-export type SearchEntityType = 'test_case'
+export const SEARCH_ENTITY_TYPES = ['test_case'] as const
 
-export type SearchMatchedField = 'title' | 'description' | 'gherkin_raw' | 'preconditions' | 'step'
+export type SearchEntityType = (typeof SEARCH_ENTITY_TYPES)[number]
+
+export const SEARCH_MATCHED_FIELDS = ['title', 'description', 'gherkin_raw', 'preconditions', 'step'] as const
+
+export type SearchMatchedField = (typeof SEARCH_MATCHED_FIELDS)[number]
 
 export interface SearchResult {
   entityType: SearchEntityType

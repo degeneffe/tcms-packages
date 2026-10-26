@@ -27,7 +27,8 @@ Requirements: Node.js >= 20 and pnpm >= 9. The exact pnpm version is pinned in
 ```bash
 pnpm install
 pnpm build          # builds all three packages through turbo
-pnpm test           # runs the gherkin-utils suite
+pnpm test           # runs the types and gherkin-utils suites
+pnpm typecheck      # typechecks tests and type-level assertions
 pnpm lint           # ESLint + Prettier check
 pnpm lint:fix       # autofix both
 ```
@@ -35,6 +36,8 @@ pnpm lint:fix       # autofix both
 Useful scoped commands:
 
 ```bash
+pnpm --filter @tcms/types test
+pnpm --filter @tcms/types typecheck
 pnpm --filter @tcms/gherkin-utils test
 pnpm --filter @tcms/gherkin-utils test:watch
 pnpm --filter @tcms/ui build
@@ -183,9 +186,10 @@ git commit -m "chore: bump tcms-packages submodule"
 - Do not add `Co-Authored-By` trailers.
 - Link the issue a pull request closes and add exactly one `type:*` label.
 - Keep tests and documentation in the same change as the behavior they describe.
-- Before opening a pull request, run `pnpm build`, `pnpm test` and
-  `pnpm lint` (or the scoped equivalent). If lint reports pre-existing issues in
-  files you did not touch, say so in the pull request instead of hiding it.
+- Before opening a pull request, run `pnpm build`, `pnpm test`,
+  `pnpm typecheck` and `pnpm lint` (or the scoped equivalent). If lint reports
+  pre-existing issues in files you did not touch, say so in the pull request
+  instead of hiding it.
 
 ## Documentation
 

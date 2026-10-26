@@ -35,15 +35,18 @@ Requirements: Node.js >= 20, pnpm >= 9. Use the pnpm version pinned in
 ```bash
 pnpm install
 pnpm build                                  # turbo: all three packages
-pnpm test                                   # gherkin-utils suite
+pnpm test                                   # turbo: types + gherkin-utils suites
+pnpm typecheck                              # turbo: tsc --noEmit per package
 pnpm lint                                   # ESLint + Prettier check
 pnpm lint:fix
+pnpm --filter @tcms/types test
+pnpm --filter @tcms/types typecheck
 pnpm --filter @tcms/gherkin-utils test
 pnpm --filter @tcms/ui build
 ```
 
 Do not add a `test` script to `ui/` unless components and tests actually exist.
-`gherkin-utils` is the only package with tests today.
+`types` and `gherkin-utils` have tests today.
 
 ## Consumer / import contract
 
@@ -104,7 +107,8 @@ import { colors, spacing, typography, radii } from '@tcms/ui/tokens'
 - Use Conventional Commits (`type(scope): description`) and never add
   `Co-Authored-By` trailers.
 - Link an issue in the pull request and add exactly one `type:*` label.
-- Run `pnpm build` and `pnpm test` before finishing. Run `pnpm lint` too and
-  report any pre-existing failures rather than silently ignoring them.
+- Run `pnpm build`, `pnpm test` and `pnpm typecheck` before finishing. Run
+  `pnpm lint` too and report any pre-existing failures rather than silently
+  ignoring them.
 - Update `README.md`, `CONTRIBUTING.md` or the relevant package README when a
   public contract changes.

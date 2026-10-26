@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "test": "turbo test",
+    "typecheck": "turbo typecheck",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint . --fix && prettier --write ."
   },
