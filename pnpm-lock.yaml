@@ -43,8 +43,8 @@ importers:
         specifier: ^42.0.1
         version: 42.0.1
       '@cucumber/messages':
-        specifier: ^34.2.1
-        version: 34.2.1
+        specifier: ^35.0.0
+        version: 35.0.0
     devDependencies:
       '@vitest/coverage-v8':
         specifier: ^5.0.5
@@ -111,6 +111,9 @@ packages:
 
   '@cucumber/messages@34.2.1':
     resolution: {integrity: sha512-aj2iCAG9ZOpMVcMxcgShifv5fbR96b7SMgdWcPXXh2QbFp7OEcAnQ5MC5YfWUDSDasmw7FU5NJEsOrXdTQOU1A==}
+
+  '@cucumber/messages@35.0.0':
+    resolution: {integrity: sha512-lubB5srgXxXwz9uVIJXdk4dm+CdKj7qfrGNHqFvlBtt4wrUb9413KBOJUpdUWTasJmQe9pYAa2rYNIl3yfW4Ag==}
 
   '@eslint-community/eslint-utils@4.10.1':
     resolution: {integrity: sha512-cuadcxVFE8sDK6iWJbs8Sn0av2Nrh2QSGQhVlBW9AaAHqHwjWsZHT8LJ4hFGPh7ASBV2deFdM7H/DPjulmh8rg==}
@@ -984,6 +987,8 @@ snapshots:
       '@cucumber/messages': 34.2.1
 
   '@cucumber/messages@34.2.1': {}
+
+  '@cucumber/messages@35.0.0': {}
 
   '@eslint-community/eslint-utils@4.10.1(eslint@10.13.0)':
     dependencies:
